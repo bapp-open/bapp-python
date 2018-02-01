@@ -5,7 +5,7 @@ long_description = open('README.md').read()
 setup(
     name='bapp',
     packages=['bapp'],
-    version='0.0.2',
+    version='0.0.3',
     description='Python API Client for BAPP',
     long_description=long_description,
     author='Cristian Boboc',

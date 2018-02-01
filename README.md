@@ -10,7 +10,7 @@ To interface with BAPP using Python, we've created a `bapp` client library.
 
 To install the `bapp` library, simply run the command:
 
-`pip install bapp-python`
+`pip install bapp`
 
 ## Quickstart
 
