@@ -17,6 +17,7 @@ class BappClient(object):
     }
 
     def __init__(self, config_path=None, test_api=False, email=None, password=None):
+
         if config_path:
             self.load_config(config_path)
         else:
