@@ -23,5 +23,10 @@ from bapp import BappClient
 
 bapp = BappClient(email='email', password='password')
 ```
+or
+```python
+from bapp import BappClient
 
+bapp = BappClient(token='token', dev=True)
+```
 Now you're ready to start using the API!

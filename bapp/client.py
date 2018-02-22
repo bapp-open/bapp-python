@@ -16,25 +16,24 @@ class BappClient(object):
         'dev': 'https://api-dev.bapp.ro',
     }
 
-    def __init__(self, config_path=None, test_api=False, email=None, password=None):
+    def __init__(self, token=None, dev=False, email=None, password=None):
 
-        if config_path:
-            self.load_config(config_path)
+        if dev:
+            self._host = self.HOSTS['dev']
+        else:
+            self._host = self.HOSTS['production']
+        if token:
+            self._token = token
         else:
             if os.path.exists(os.path.expanduser(self.DEFAULT_CONFIG_FILE)):
                 self.load_config(self.DEFAULT_CONFIG_FILE)
             else:
-                if test_api:
-                    self._host = self.HOSTS['dev']
-                else:
-                    self._host = self.HOSTS['production']
                 self._path = self.DEFAULT_CONFIG_FILE
                 self._token = None
-        if not self._token:
-            if email and password:
-                result = self.execute('POST', 'account/authenticate', json={'email': email, 'password': password})
-                self._token = result.get('token')
-                self.save_config(self.DEFAULT_CONFIG_FILE)
+                if email and password:
+                    result = self.execute('POST', 'account/authenticate', json={'email': email, 'password': password})
+                    self._token = result.get('token')
+                    self.save_config(self.DEFAULT_CONFIG_FILE)
 
     def load_config(self, path):
         """
@@ -73,4 +72,16 @@ class BappClient(object):
             headers = {'Content-type': 'application/json'}
         url = "{}/{}/".format(self._host, path)
         response = requests.request(method, url, headers=headers, **kwargs)
+        if response.status_code in [403]:
+            raise BappException
         return response.json()
+
+
+class ApiEndpoint(object):
+
+    def __init__(self, api, endpoint):
+        self.api = api
+        self.endpoint = endpoint
+
+    def get(self):
+        pass
