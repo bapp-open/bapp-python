@@ -3,7 +3,7 @@ from setuptools import setup
 setup(
     name='bapp',
     packages=['bapp'],
-    version='0.0.4',
+    version='0.0.5',
     description='Python API Client for BAPP',
     author='Cristian Boboc',
     author_email='cristi@cbsoft.ro',
